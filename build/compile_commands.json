@@ -1,0 +1,14 @@
+[
+{
+  "directory": "E:/Learn/C++/Allocator Suite/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -I\"E:/Learn/C++/Allocator Suite/src/public\" -std=gnu++20 -o CMakeFiles\\AllocatorSuite.dir\\src\\private\\StackAlloc.cpp.obj -c \"E:\\Learn\\C++\\Allocator Suite\\src\\private\\StackAlloc.cpp\"",
+  "file": "E:/Learn/C++/Allocator Suite/src/private/StackAlloc.cpp",
+  "output": "E:/Learn/C++/Allocator Suite/build/CMakeFiles/AllocatorSuite.dir/src/private/StackAlloc.cpp.obj"
+},
+{
+  "directory": "E:/Learn/C++/Allocator Suite/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -I\"E:/Learn/C++/Allocator Suite/src/public\" -std=gnu++20 -o CMakeFiles\\AllocatorSuite.dir\\src\\private\\main.cpp.obj -c \"E:\\Learn\\C++\\Allocator Suite\\src\\private\\main.cpp\"",
+  "file": "E:/Learn/C++/Allocator Suite/src/private/main.cpp",
+  "output": "E:/Learn/C++/Allocator Suite/build/CMakeFiles/AllocatorSuite.dir/src/private/main.cpp.obj"
+}
+]
