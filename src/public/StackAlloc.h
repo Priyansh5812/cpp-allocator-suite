@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <iostream>
+#include <type_traits>
 
 namespace Stack_Allocator
 {	
@@ -9,8 +10,8 @@ namespace Stack_Allocator
 		public:
 			size_t AllocationSize;
 			size_t padding;
-			void (*Destructor)();
-
+			void(*Destructor)(void*);
+			
 	} AllocationHeader;
 
 
@@ -46,11 +47,28 @@ namespace Stack_Allocator
 			AllocationHeader* header = reinterpret_cast<AllocationHeader*>(static_cast<std::byte*>(userData)+bytes);
 			header->AllocationSize = bytes;
 			header->padding = padding;
+
+			if(!std::is_trivially_destructible<T>())
+			{
+				header->Destructor = &DestroyObject<T>;
+			}
+			else
+			{
+				header->Destructor = nullptr;
+			}
+
 			_self->allocatedBytes += (bytes + padding + sizeof(AllocationHeader));
 			_self->DebugAllocation(padding, bytes,alignment);
 			return userData;
 		}
 		static void Release();
+
+		template<typename T>
+		static void DestroyObject(void* ptr)
+		{
+			static_cast<T*>(ptr)->~T();
+		}
+
 	public:
 		StackAlloc(const StackAlloc&) = delete;
 	private:

@@ -1,6 +1,6 @@
 #include "StackAlloc.h"
-
 #include <iostream>
+
 using namespace Stack_Allocator;
 
 StackAlloc* StackAlloc:: _self;
@@ -45,6 +45,12 @@ void StackAlloc::Release()
 	
 	size_t bytesToReceed = lastHeader->AllocationSize + lastHeader->padding + sizeof(AllocationHeader);
 	_self->allocatedBytes -= bytesToReceed;
+	if(lastHeader->Destructor)
+	{
+		std::byte* lastAllocation = static_cast<std::byte*>(_self->buffer) + _self->allocatedBytes + lastHeader->padding;
+		void* ptr = lastAllocation;
+		lastHeader->Destructor(lastAllocation);
+	}
 	
 }
 

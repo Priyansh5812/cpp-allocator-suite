@@ -2,15 +2,30 @@
 #include <iostream>
 using namespace Stack_Allocator;
 
+class A
+{
+	public:
+		int a;
+		A(int v) : a(v)
+		{
+			std::cout << "Constructed" << std::endl;
+		}
+		~A()
+		{
+			a = 0;
+		}
+};
+
+
+
 int main()
 {	
 	StackAlloc::Initialize(256);
-
-	int* ptr = static_cast<int*>(StackAlloc::Allocate<int>());
-	*ptr = 40;
-
-	std::cout << *ptr << std::endl;
-	StackAlloc::Release();	
+	void* mem = StackAlloc::Allocate<A>();
+	A* ptr = new(mem) A(5);
+	std::cout << "Value = " << ptr->a << std::endl;
+	StackAlloc::Release();
+	std::cout << "Value = " << ptr->a << std::endl;
 	StackAlloc::DeInitialize();
 	return 0;
 }
